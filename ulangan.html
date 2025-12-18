@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+	let jumlahPembeli = 2;
+    let pembeli = [];
+    let hargaBuku = 5000; 
+    
+    for (let i = 1; i <= jumlahPembeli; i++) {
+        console.log(`\n=== Data pembeli ke-${i} ===`);
+        
+        // Prompt identitas
+        let nama = prompt(`Pembeli ke-${i}\nMasukkan nama:`);
+        let jumlahBuku = parseInt(prompt("Masukkan jumlah buku:"));
+        
+      
+        let totalSebelumDiskon = jumlahBuku * hargaBuku;
+        let diskon = 0;
+        let persenDiskon = 0;
+       
+
+	   if (jumlahBuku <= 100) {
+			persenDiskon = 0; 
+			diskon = 0;
+	
+	} else if (jumlahBuku <= 200) {
+    
+		let diskon100Pertama =  hargaBuku * 0.05;
+		let sisaBuku = jumlahBuku - 100;
+		let diskonSisa = sisaBuku *  hargaBuku * 0.15;
+		diskon = diskon100Pertama + diskonSisa;
+		persenDiskon = (diskon / totalSebelumDiskon) * 100; 
+		
+	} else {
+  
+		let diskon100Pertama =  hargaBuku * 0.07;
+		let diskon100Kedua = hargaBuku * 0.17;
+		let sisaBuku = jumlahBuku - 200;
+		let diskonSisa = sisaBuku *  hargaBuku * 0.27;
+		diskon = diskon100Pertama + diskon100Kedua + diskonSisa;
+		persenDiskon = (diskon / totalSebelumDiskon) * 100; 
+	}
+        
+        let totalSetelahDiskon = totalSebelumDiskon - diskon;
+        
+       
+        let dataPembeli = {
+            nama: nama,
+            jumlahBuku: jumlahBuku,
+            totalSetelahDiskon: totalSetelahDiskon
+        };
+        pembeli.push(dataPembeli);
+        
+        
+        console.log(`Nama: ${nama}`);
+        console.log(`Jumlah Buku: ${jumlahBuku}`);
+        console.log(`Total Setelah Diskon: Rp ${totalSetelahDiskon.toLocaleString('id-ID')}`);
+        console.log('-----------------------------------');
+    }
+    
+    console.log('\n=== SEMUA DATA PEMBELI ===');
+    console.log(pembeli);
+    
+    console.log('\n=== RINGKASAN ===');
+    let totalPenjualan = pembeli.reduce((sum, p) => sum + p.totalSetelahDiskon, 0);
+    console.log(`Total Pembeli: ${jumlahPembeli}`);
+    console.log(`Total Penjualan: Rp ${totalPenjualan.toLocaleString('id-ID')}`);
+</script>
+</body>
+</html>
